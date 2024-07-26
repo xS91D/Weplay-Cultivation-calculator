@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>修仙計算器</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        h2 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        .result p {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>修仙計算器</h2>
+        <div>
+            <label for="myPower">我方原戰力 (A): </label>
+            <input type="number" id="myPower" placeholder="輸入我方原戰力">
+        </div>
+        <div>
+            <label for="enemyPower">敵方原戰力 (B): </label>
+            <input type="number" id="enemyPower" placeholder="輸入敵方原戰力">
+        </div>
+        <button onclick="calculate()">計算</button>
+        <div class="result" id="result"></div>
+    </div>
+    <script>
+        function calculate() {
+            let myPower = parseFloat(document.getElementById('myPower').value);
+            let enemyPower = parseFloat(document.getElementById('enemyPower').value);
+            if (isNaN(myPower) || isNaN(enemyPower)) {
+                alert('請輸入有效的戰力數值');
+                return;
+            }
+
+            let myPowerPlus5 = Math.round(myPower * 1.05);
+            let myPowerMinus5 = Math.round(myPower * 0.95);
+            let myPowerPlus8 = Math.round(myPower * 1.08);
+            let enemyPowerPlus5 = Math.round(enemyPower * 1.05);
+            let enemyPowerMinus5 = Math.round(enemyPower * 0.95);
+            let enemyPowerHigh = Math.round((myPower * 1.05) / 0.95);
+            let enemyPowerLow = Math.round((myPower * 0.95) / 1.05);
+
+            let resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <p>我方戰力(+5%後): ${myPowerPlus5}</p>
+                <p>我方戰力(-5%後): ${myPowerMinus5}</p>
+                <p>我方戰力(+8%後): ${myPowerPlus8}</p>
+                <p>敵方戰力(+5%後): ${enemyPowerPlus5}</p>
+                <p>敵方戰力(-5%後): ${enemyPowerMinus5}</p>
+                <p>敵方戰力高於以下(贏不了): ${enemyPowerHigh}</p>
+                <p>敵方戰力低於以下(可輾壓): ${enemyPowerLow}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
