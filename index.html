@@ -11,6 +11,7 @@
             margin: 0;
             padding: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -62,6 +63,11 @@
             margin: 5px 0;
             border: 1px solid #ddd;
         }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #999;
+        }
     </style>
 </head>
 <body>
@@ -77,6 +83,9 @@
         </div>
         <button onclick="calculate()">計算</button>
         <div class="result" id="result"></div>
+        <div class="footer">
+            本網站計算數據僅供參考用，仍有可能錯誤
+        </div>
     </div>
     <script>
         function calculate() {
