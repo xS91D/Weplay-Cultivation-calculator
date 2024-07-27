@@ -104,6 +104,9 @@
             let enemyPowerHigh = Math.round((myPower * 1.05) / 0.95);
             let enemyPowerLow = Math.round((myPower * 0.95) / 1.05);
 
+            let controlledMyPower = Math.round(myPower * 1.05);
+            let controlledEnemyPower = Math.round(enemyPower * 0.95);
+
             let resultDiv = document.getElementById('result');
             resultDiv.innerHTML = `
                 <p>我方戰力(+5%後): ${myPowerPlus5}</p>
@@ -113,7 +116,14 @@
                 <p>敵方戰力(-5%後): ${enemyPowerMinus5}</p>
                 <p>敵方戰力高於以下(贏不了): ${enemyPowerHigh}</p>
                 <p>敵方戰力低於以下(可輾壓): ${enemyPowerLow}</p>
+                <p>經過克制換算: 我方戰力 ${controlledMyPower}<br>敵方戰力 ${controlledEnemyPower}</p>
             `;
+
+            if (controlledMyPower > controlledEnemyPower) {
+                resultDiv.innerHTML += `<p style="color: green; font-weight: bold;">本次計算，你會獲勝</p>`;
+            } else {
+                resultDiv.innerHTML += `<p style="color: red; font-weight: bold;">本次計算，你會輸</p>`;
+            }
         }
     </script>
 </body>
