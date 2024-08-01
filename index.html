@@ -15,14 +15,15 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: auto; /* 允许滚动 */
+            overflow: auto;
         }
         .container {
             background: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            width: 90%;
+            max-width: 500px;
             text-align: center;
         }
         h2 {
@@ -54,7 +55,7 @@
             font-size: 16px;
             cursor: pointer;
             border-radius: 4px;
-            margin-top: 10px;
+            margin: 10px 5px 0 5px;
         }
         button:hover {
             background-color: #45a049;
@@ -117,16 +118,16 @@
             let controlledEnemyPower = Math.round(enemyPower * 0.95);
 
             let resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = 
-                <p>我方戰力(+5%後): ${myPowerPlus5}</p>
-                <p>我方戰力(-5%後): ${myPowerMinus5}</p>
-                <p>我方戰力(+8%後): ${myPowerPlus8}</p>
-                <p>敵方戰力(+5%後): ${enemyPowerPlus5}</p>
-                <p>敵方戰力(-5%後): ${enemyPowerMinus5}</p>
-                <p>敵方戰力高於以下(贏不了): ${enemyPowerHigh}</p>
-                <p>敵方戰力低於以下(可輾壓): ${enemyPowerLow}</p>
-                <p style="color: purple;">我方戰力為 ${controlledMyPower}<br>敵方戰力為 ${controlledEnemyPower}</p>
-            ;
+            resultDiv.innerHTML = `
+                <span class="item">我方戰力(+5%後): ${myPowerPlus5}</span>
+                <span class="item">我方戰力(-5%後): ${myPowerMinus5}</span>
+                <span class="item">我方戰力(+8%後): ${myPowerPlus8}</span>
+                <span class="item">敵方戰力(+5%後): ${enemyPowerPlus5}</span>
+                <span class="item">敵方戰力(-5%後): ${enemyPowerMinus5}</span>
+                <span class="item">敵方戰力高於以下(贏不了): ${enemyPowerHigh}</span>
+                <span class="item">敵方戰力低於以下(可輾壓): ${enemyPowerLow}</span>
+                <span class="item" style="color: purple;">我方戰力為 ${controlledMyPower}<br>敵方戰力為 ${controlledEnemyPower}</span>
+            `;
 
             if (controlledMyPower > controlledEnemyPower) {
                 resultDiv.innerHTML += `<span class="item" style="color: green; font-weight: bold;">你會贏</span>`;
