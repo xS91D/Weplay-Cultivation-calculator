@@ -103,6 +103,10 @@
                 return;
             }
 
+            // 清除之前的結果
+            let resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '';
+
             let myPowerPlus5 = Math.round(myPower * 1.05);
             let myPowerMinus5 = Math.round(myPower * 0.95);
             let myPowerPlus8 = Math.round(myPower * 1.08);
@@ -114,7 +118,6 @@
             let controlledMyPower = Math.round(myPower * 1.05);
             let controlledEnemyPower = Math.round(enemyPower * 0.95);
 
-            let resultDiv = document.getElementById('result');
             resultDiv.innerHTML = `
                 <p>我方戰力(+5%後): ${myPowerPlus5}</p>
                 <p>我方戰力(-5%後): ${myPowerMinus5}</p>
@@ -126,12 +129,4 @@
                 <p style="color: purple;">我方戰力為 ${controlledMyPower}<br>敵方戰力為 ${controlledEnemyPower}</p>
             `;
 
-            if (controlledMyPower > controlledEnemyPower) {
-                resultDiv.innerHTML += `<p style="color: green; font-weight: bold;">你會贏</p>`;
-            } else {
-                resultDiv.innerHTML += `<p style="color: red; font-weight: bold;">你會輸</p>`;
-            }
-        }
-    </script>
-</body>
-</html>
+            if (controlledMyPower > controlled
