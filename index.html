@@ -62,12 +62,13 @@
         .result {
             margin-top: 20px;
         }
-        .result p {
+        .result .item {
             background: #f9f9f9;
             padding: 10px;
             border-radius: 4px;
-            margin: 5px 0;
+            margin: 5px;
             border: 1px solid #ddd;
+            display: inline-block;
         }
         .footer {
             margin-top: 20px;
@@ -117,20 +118,20 @@
 
             let resultDiv = document.getElementById('result');
             resultDiv.innerHTML = `
-                <p>我方戰力(+5%後): ${myPowerPlus5}</p>
-                <p>我方戰力(-5%後): ${myPowerMinus5}</p>
-                <p>我方戰力(+8%後): ${myPowerPlus8}</p>
-                <p>敵方戰力(+5%後): ${enemyPowerPlus5}</p>
-                <p>敵方戰力(-5%後): ${enemyPowerMinus5}</p>
-                <p>敵方戰力高於以下(贏不了): ${enemyPowerHigh}</p>
-                <p>敵方戰力低於以下(可輾壓): ${enemyPowerLow}</p>
-                <p style="color: purple;">我方戰力為 ${controlledMyPower}<br>敵方戰力為 ${controlledEnemyPower}</p>
+                <span class="item">我方戰力(+5%後): ${myPowerPlus5}</span>
+                <span class="item">我方戰力(-5%後): ${myPowerMinus5}</span>
+                <span class="item">我方戰力(+8%後): ${myPowerPlus8}</span>
+                <span class="item">敵方戰力(+5%後): ${enemyPowerPlus5}</span>
+                <span class="item">敵方戰力(-5%後): ${enemyPowerMinus5}</span>
+                <span class="item">敵方戰力高於以下(贏不了): ${enemyPowerHigh}</span>
+                <span class="item">敵方戰力低於以下(可輾壓): ${enemyPowerLow}</span>
+                <span class="item" style="color: purple;">我方戰力為 ${controlledMyPower}<br>敵方戰力為 ${controlledEnemyPower}</span>
             `;
 
             if (controlledMyPower > controlledEnemyPower) {
-                resultDiv.innerHTML += `<p style="color: green; font-weight: bold;">你會贏</p>`;
+                resultDiv.innerHTML += `<span class="item" style="color: green; font-weight: bold;">你會贏</span>`;
             } else {
-                resultDiv.innerHTML += `<p style="color: red; font-weight: bold;">你會輸</p>`;
+                resultDiv.innerHTML += `<span class="item" style="color: red; font-weight: bold;">你會輸</span>`;
             }
 
             // 滾動回到頂部
