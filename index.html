@@ -15,6 +15,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: auto; /* 允许滚动 */
         }
         .container {
             background: #fff;
@@ -131,6 +132,9 @@
             } else {
                 resultDiv.innerHTML += `<p style="color: red; font-weight: bold;">你會輸</p>`;
             }
+
+            // 滾動回到頂部
+            window.scrollTo(0, 0);
         }
     </script>
 </body>
