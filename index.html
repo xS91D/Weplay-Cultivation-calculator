@@ -15,15 +15,14 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: auto;
+            overflow: auto; /* 允许滚动 */
         }
         .container {
             background: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 500px;
+            width: 300px;
             text-align: center;
         }
         h2 {
@@ -55,21 +54,21 @@
             font-size: 16px;
             cursor: pointer;
             border-radius: 4px;
-            margin: 10px 5px 0 5px;
+            margin-top: 10px;
         }
         button:hover {
             background-color: #45a049;
         }
         .result {
             margin-top: 20px;
+            text-align: left;
         }
-        .result .item {
+        .result p {
             background: #f9f9f9;
             padding: 10px;
             border-radius: 4px;
-            margin: 5px;
+            margin: 5px 0;
             border: 1px solid #ddd;
-            display: inline-block;
         }
         .footer {
             margin-top: 20px;
@@ -119,20 +118,20 @@
 
             let resultDiv = document.getElementById('result');
             resultDiv.innerHTML = `
-                <span class="item">我方戰力(+5%後): ${myPowerPlus5}</span>
-                <span class="item">我方戰力(-5%後): ${myPowerMinus5}</span>
-                <span class="item">我方戰力(+8%後): ${myPowerPlus8}</span>
-                <span class="item">敵方戰力(+5%後): ${enemyPowerPlus5}</span>
-                <span class="item">敵方戰力(-5%後): ${enemyPowerMinus5}</span>
-                <span class="item">敵方戰力高於以下(贏不了): ${enemyPowerHigh}</span>
-                <span class="item">敵方戰力低於以下(可輾壓): ${enemyPowerLow}</span>
-                <span class="item" style="color: purple;">我方戰力為 ${controlledMyPower}<br>敵方戰力為 ${controlledEnemyPower}</span>
+                <p>我方戰力(+5%後): ${myPowerPlus5}</p>
+                <p>我方戰力(-5%後): ${myPowerMinus5}</p>
+                <p>我方戰力(+8%後): ${myPowerPlus8}</p>
+                <p>敵方戰力(+5%後): ${enemyPowerPlus5}</p>
+                <p>敵方戰力(-5%後): ${enemyPowerMinus5}</p>
+                <p>敵方戰力高於以下(贏不了): ${enemyPowerHigh}</p>
+                <p>敵方戰力低於以下(可輾壓): ${enemyPowerLow}</p>
+                <p style="color: purple;">我方戰力為 ${controlledMyPower}<br>敵方戰力為 ${controlledEnemyPower}</p>
             `;
 
             if (controlledMyPower > controlledEnemyPower) {
-                resultDiv.innerHTML += `<span class="item" style="color: green; font-weight: bold;">你會贏</span>`;
+                resultDiv.innerHTML += `<p style="color: green; font-weight: bold;">你會贏</p>`;
             } else {
-                resultDiv.innerHTML += `<span class="item" style="color: red; font-weight: bold;">你會輸</span>`;
+                resultDiv.innerHTML += `<p style="color: red; font-weight: bold;">你會輸</p>`;
             }
 
             // 滾動回到頂部
