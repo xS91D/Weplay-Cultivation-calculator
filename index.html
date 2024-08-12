@@ -2,100 +2,166 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>修仙計算器</title>
+    <title>修仙戰力計算器</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f8ff;
-            color: #333;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #ffcc70, #5e9ca0);
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             height: 100vh;
-            overflow: auto; /* 允许滚动 */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
-        .container {
+        .calculator-container {
             background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
             text-align: center;
+            width: 350px;
         }
         h2 {
             color: #4CAF50;
-            margin-bottom: 20px;
+            font-size: 28px;
+            margin-bottom: 30px;
         }
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-align: left;
         }
         label {
             display: block;
+            font-size: 14px;
+            color: #555;
             margin-bottom: 5px;
-            font-weight: bold;
+            font-weight: 600;
         }
         input[type="number"] {
-            width: calc(100% - 20px); /* Make the width of input 100% minus the padding */
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
             box-sizing: border-box;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input[type="number"]:focus {
+            border-color: #4CAF50;
+            outline: none;
         }
         button {
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 20px;
             text-align: center;
-            font-size: 16px;
+            font-size: 18px;
             cursor: pointer;
-            border-radius: 4px;
-            margin-top: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            width: 100%;
         }
         button:hover {
             background-color: #45a049;
         }
         .result {
-            margin-top: 20px;
+            margin-top: 30px;
+            text-align: left;
         }
         .result p {
-            background: #f9f9f9;
-            padding: 10px;
-            border-radius: 4px;
-            margin: 5px 0;
-            border: 1px solid #ddd;
+            background: #f2f2f2;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+        }
+        .result p:nth-child(even) {
+            background: #e9e9e9;
         }
         .footer {
             margin-top: 20px;
             font-size: 12px;
-            color: #999;
+            color: #777;
+        }
+        .drawer {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #333;
+            overflow-x: hidden;
+            transition: transform 0.3s ease;
+            transform: translateX(-250px);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+        }
+        .drawer a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+        .drawer a:hover {
+            background-color: #575757;
+        }
+        .drawer-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        .drawer-toggle {
+            font-size: 30px;
+            cursor: pointer;
+            position: fixed;
+            left: 15px;
+            top: 15px;
+            z-index: 10;
+            color: #333;
+            background-color: #fff;
+            border-radius: 50%;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>修仙計算器</h2>
+    <div class="calculator-container">
+        <h2>修仙戰力計算器</h2>
         <div class="input-group">
-            <label for="myPower">我方原戰力: </label>
-            <input type="number" id="myPower" placeholder="輸入我方原戰力">
+            <label for="myPower">我方原戰力:</label>
+            <input type="number" id="myPower" placeholder="請輸入我方原戰力">
         </div>
         <div class="input-group">
-            <label for="enemyPower">敵方原戰力: </label>
-            <input type="number" id="enemyPower" placeholder="輸入敵方原戰力">
+            <label for="enemyPower">敵方原戰力:</label>
+            <input type="number" id="enemyPower" placeholder="請輸入敵方原戰力">
         </div>
-        <button onclick="calculate()">計算</button>
+        <button onclick="calculate()">計算結果</button>
         <div class="result" id="result"></div>
-        <div class="footer">
-            本網站計算戰力僅供參考
-        </div>
-        <button onclick="location.href='attribute.html'">屬性推算</button>
-        <button onclick="location.href='levelup.html'">等級換算</button>
+        <div class="footer">本網站計算戰力僅供參考</div>
     </div>
+    
     <script>
+        function toggleDrawer() {
+            let drawer = document.getElementById("drawer");
+            if (drawer.style.transform === "translateX(0px)") {
+                drawer.style.transform = "translateX(-250px)";
+            } else {
+                drawer.style.transform = "translateX(0px)";
+            }
+        }
+
         function calculate() {
             let myPower = parseFloat(document.getElementById('myPower').value);
             let enemyPower = parseFloat(document.getElementById('enemyPower').value);
@@ -103,7 +169,7 @@
                 alert('請輸入有效的戰力數值');
                 return;
             }
-
+    
             let myPowerPlus5 = Math.round(myPower * 1.05);
             let myPowerMinus5 = Math.round(myPower * 0.95);
             let myPowerPlus8 = Math.round(myPower * 1.08);
@@ -111,30 +177,26 @@
             let enemyPowerMinus5 = Math.round(enemyPower * 0.95);
             let enemyPowerHigh = Math.round((myPower * 1.05) / 0.95);
             let enemyPowerLow = Math.round((myPower * 0.95) / 1.05);
-
+    
             let controlledMyPower = Math.round(myPower * 1.05);
             let controlledEnemyPower = Math.round(enemyPower * 0.95);
-
+    
             let resultDiv = document.getElementById('result');
             resultDiv.innerHTML = `
-                <p>我方戰力(+5%後): ${myPowerPlus5}</p>
-                <p>我方戰力(-5%後): ${myPowerMinus5}</p>
-                <p>我方戰力(+8%後): ${myPowerPlus8}</p>
-                <p>敵方戰力(+5%後): ${enemyPowerPlus5}</p>
-                <p>敵方戰力(-5%後): ${enemyPowerMinus5}</p>
-                <p>敵方戰力高於以下(贏不了): ${enemyPowerHigh}</p>
-                <p>敵方戰力低於以下(可輾壓): ${enemyPowerLow}</p>
-                <p style="color: purple;">我方戰力為 ${controlledMyPower}<br>敵方戰力為 ${controlledEnemyPower}</p>
+                <p>我方戰力 (+5%)：${myPowerPlus5} || 我方戰力 (-5%)：${myPowerMinus5}</p>
+                <p>敵方戰力 (+5%)：${enemyPowerPlus5} || 敵方戰力 (-5%)：${enemyPowerMinus5}</p>
+                <div style="text-align: center;">
+                    <p>可應對最高敵方戰力：${enemyPowerHigh}</p>
+                    <p>可應對最低敵方戰力：${enemyPowerLow}</p>
+                    <p style="color: purple;">我方總戰力： ${controlledMyPower}<br>敵方總戰力： ${controlledEnemyPower}</p>
+                </div>
             `;
-
+    
             if (controlledMyPower > controlledEnemyPower) {
-                resultDiv.innerHTML += `<p style="color: green; font-weight: bold;">你會贏</p>`;
+                resultDiv.innerHTML += `<p style="color: green; font-weight: bold; text-align: center;">你會贏</p>`;
             } else {
-                resultDiv.innerHTML += `<p style="color: red; font-weight: bold;">你會輸</p>`;
+                resultDiv.innerHTML += `<p style="color: red; font-weight: bold; text-align: center;">你會輸</p>`;
             }
-
-            // 滾動回到頂部
-            window.scrollTo(0, 0);
         }
     </script>
 </body>
