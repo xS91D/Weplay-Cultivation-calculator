@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>修仙經驗值計算器</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #ffcc70, #5e9ca0);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .calculator-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 350px;
+        }
+        h2 {
+            color: #4CAF50;
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+        .input-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            background: #fff;
+        }
+        select:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .result p {
+            background: #f2f2f2;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            display: inline-block;
+            width: 85px; /* 縮小寬度 */
+            text-align: center;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <h2>修仙經驗值查詢器</h2>
+        <div class="input-group">
+            <label for="levelSelect">選擇等級:</label>
+            <select id="levelSelect" onchange="calculateExperience()">
+                <option value="" disabled selected>請選擇等級</option>
+                <option value="1">等級 1</option>
+                <option value="2">等級 2</option>
+                <option value="3">等級 3</option>
+                <option value="4">等級 4</option>
+                <option value="5">等級 5</option>
+                <option value="6">等級 6</option>
+                <option value="7">等級 7</option>
+                <option value="8">等級 8</option>
+                <option value="9">等級 9</option>
+                <option value="10">等級 10</option>
+                <option value="11">等級 11</option>
+                <option value="12">等級 12</option>
+                <option value="13">等級 13</option>
+                <option value="14">等級 14</option>
+                <option value="15">等級 15</option>
+                <option value="16">等級 16</option>
+                <option value="17">等級 17</option>
+                <option value="18">等級 18</option>
+            </select>
+        </div>
+        <div class="result" id="result"></div>
+        <div class="footer">本網站提供數據僅供參考</div>
+    </div>
+    
+    <script>
+        function calculateExperience() {
+            const experienceData = {
+                1: { early: 15, middle: 25, late: 50 },
+                2: { early: 100, middle: 440, late: 900 },
+                3: { early: 5400, middle: 13000, late: 24150 },
+                4: { early: 25000, middle: 26000, late: 44625 },
+                5: { early: 48825, middle: 51240, late: 54915 },
+                6: { early: 56490, middle: 59325, late: 61950 },
+                7: { early: 65415, middle: 68670, late: 72135 },
+                8: { early: 75705, middle: 79485, late: 166950 },
+                9: { early: 175350, middle: 183750, late: 193200 },
+                10: { early: 202965, middle: 213150, late: 223650 },
+                11: { early: 262500, middle: 283500, late: 315000 },
+                12: { early: 561000, middle: 861000, late: 903000 },
+                13: { early: 924000, middle: 945000, late: 950985 },
+                14: { early: 968100, middle: 985500, late: 1003750 },
+                15: { early: 1020000, middle: 1035000, late: 1058422 },
+                16: { early: 2520000, middle: 1890000, late: 1942500 },
+                17: { early: 3225000, middle: 3525000, late: 5000000 },
+                18: { early: 6300000, middle: 7035000, late: 8010000 }
+            };
+
+            const level = document.getElementById("levelSelect").value;
+            const resultDiv = document.getElementById("result");
+
+            if (level) {
+                const exp = experienceData[level];
+                resultDiv.innerHTML = `
+                    <p>前期: ${exp.early}</p>
+                    <p>中期: ${exp.middle}</p>
+                    <p>後期: ${exp.late}</p>
+                    <p style="color: purple;">總經驗所需: ${exp.early + exp.middle + exp.late}</p>
+                `;
+            } else {
+                resultDiv.innerHTML = '請選擇一個等級。';
+            }
+        }
+    </script>
+</body>
+</html>
