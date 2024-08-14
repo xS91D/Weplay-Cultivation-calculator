@@ -111,7 +111,7 @@
         
         <!-- 新增的底部按鈕 -->
         <div class="button-group">
-            <button onclick="location.href='index.html'">戰力計算</button>
+            <button onclick="location.href='levelup.html'">經驗計算</button>
             <button onclick="location.href='exp.html'">經驗查詢</button>
         </div>
 
@@ -146,4 +146,16 @@
                 <p>敵方戰力(+5%後): ${enemyPowerPlus5}</p>
                 <p>敵方戰力(-5%後): ${enemyPowerMinus5}</p>
                 <p>敵方戰力高於以下(贏不了): ${enemyPowerHigh}</p>
-                <p>敵方戰力低於以下(可輾壓): ${enemyPowerLow}</p
+                <p>敵方戰力低於以下(可輾壓): ${enemyPowerLow}</p>
+                <p style="color: purple;">我方戰力為 ${controlledMyPower}<br>敵方戰力為 ${controlledEnemyPower}</p>
+            `;
+    
+            if (controlledMyPower > controlledEnemyPower) {
+                resultDiv.innerHTML += `<p style="color: green; font-weight: bold; text-align: center;">你會贏</p>`;
+            } else {
+                resultDiv.innerHTML += `<p style="color: red; font-weight: bold; text-align: center;">你會輸</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
