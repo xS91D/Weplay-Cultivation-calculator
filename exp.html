@@ -64,7 +64,8 @@
             cursor: pointer;
             border-radius: 5px;
             transition: background-color 0.3s;
-            width: 100%;
+            width: 48%;
+            margin: 5px 1%;
         }
         button:hover {
             background-color: #45a049;
@@ -80,13 +81,18 @@
             margin: 5px 0;
             border: 1px solid #ccc;
             display: inline-block;
-            width: 85px; /* 縮小寬度 */
+            width: 85px;
             text-align: center;
         }
         .footer {
             margin-top: 20px;
             font-size: 12px;
             color: #777;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -117,8 +123,16 @@
                 <option value="18">等級 18</option>
             </select>
         </div>
+
         <div class="result" id="result"></div>
-        <div class="footer">本網站提供數據僅供參考</div>
+        
+        <!-- 新增的底部按鈕 -->
+        <div class="button-group">
+            <button onclick="location.href='index.html'">戰力計算</button>
+            <button onclick="location.href='exp.html'">經驗查詢</button>
+        </div>
+
+        <div class="footer">本網站計算戰力僅供參考</div>
     </div>
     
     <script>
