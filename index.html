@@ -63,7 +63,8 @@
             cursor: pointer;
             border-radius: 5px;
             transition: background-color 0.3s;
-            width: 100%;
+            width: 48%;
+            margin: 5px 1%;
         }
         button:hover {
             background-color: #45a049;
@@ -87,52 +88,10 @@
             font-size: 12px;
             color: #777;
         }
-        .drawer {
-            position: fixed;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 250px;
-            background-color: #333;
-            overflow-x: hidden;
-            transition: transform 0.3s ease;
-            transform: translateX(-250px);
-            color: white;
+        .button-group {
             display: flex;
-            flex-direction: column;
-            padding-top: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
-        }
-        .drawer a {
-            padding: 15px 20px;
-            text-decoration: none;
-            font-size: 18px;
-            color: white;
-            display: block;
-            transition: background-color 0.3s ease;
-        }
-        .drawer a:hover {
-            background-color: #575757;
-        }
-        .drawer-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 30px;
-            cursor: pointer;
-        }
-        .drawer-toggle {
-            font-size: 30px;
-            cursor: pointer;
-            position: fixed;
-            left: 15px;
-            top: 15px;
-            z-index: 10;
-            color: #333;
-            background-color: #fff;
-            border-radius: 50%;
-            padding: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            justify-content: center;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -149,19 +108,17 @@
         </div>
         <button onclick="calculate()">計算結果</button>
         <div class="result" id="result"></div>
+        
+        <!-- 新增的底部按鈕 -->
+        <div class="button-group">
+            <button onclick="location.href='index.html'">戰力計算</button>
+            <button onclick="location.href='exp.html'">經驗查詢</button>
+        </div>
+
         <div class="footer">本網站計算戰力僅供參考</div>
     </div>
     
     <script>
-        function toggleDrawer() {
-            let drawer = document.getElementById("drawer");
-            if (drawer.style.transform === "translateX(0px)") {
-                drawer.style.transform = "translateX(-250px)";
-            } else {
-                drawer.style.transform = "translateX(0px)";
-            }
-        }
-
         function calculate() {
             let myPower = parseFloat(document.getElementById('myPower').value);
             let enemyPower = parseFloat(document.getElementById('enemyPower').value);
@@ -189,16 +146,4 @@
                 <p>敵方戰力(+5%後): ${enemyPowerPlus5}</p>
                 <p>敵方戰力(-5%後): ${enemyPowerMinus5}</p>
                 <p>敵方戰力高於以下(贏不了): ${enemyPowerHigh}</p>
-                <p>敵方戰力低於以下(可輾壓): ${enemyPowerLow}</p>
-                <p style="color: purple;">我方戰力為 ${controlledMyPower}<br>敵方戰力為 ${controlledEnemyPower}</p>
-            `;
-    
-            if (controlledMyPower > controlledEnemyPower) {
-                resultDiv.innerHTML += `<p style="color: green; font-weight: bold; text-align: center;">你會贏</p>`;
-            } else {
-                resultDiv.innerHTML += `<p style="color: red; font-weight: bold; text-align: center;">你會輸</p>`;
-            }
-        }
-    </script>
-</body>
-</html>
+                <p>敵方戰力低於以下(可輾壓): ${enemyPowerLow}</p
