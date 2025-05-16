@@ -15,6 +15,7 @@
             align-items: center;
             justify-content: center;
         }
+
         .calculator-container {
             background: #fff;
             padding: 20px;
@@ -25,15 +26,18 @@
             max-width: 400px;
             box-sizing: border-box;
         }
+
         h2 {
             color: #4CAF50;
             font-size: 24px;
             margin-bottom: 20px;
         }
+
         .input-group {
             margin-bottom: 20px;
             text-align: left;
         }
+
         label {
             display: block;
             font-size: 14px;
@@ -41,6 +45,7 @@
             margin-bottom: 5px;
             font-weight: 600;
         }
+
         input[type="number"] {
             width: 100%;
             padding: 10px 15px;
@@ -50,31 +55,35 @@
             font-size: 16px;
             transition: border-color 0.3s;
         }
+
         input[type="number"]:focus {
             border-color: #4CAF50;
             outline: none;
         }
+
         button {
             background-color: #4CAF50;
             color: white;
             border: none;
             padding: 12px 20px;
             text-align: center;
-            font-size: 18px;
+            font-size: 16px;
             cursor: pointer;
             border-radius: 5px;
             transition: background-color 0.3s;
-            width: 48%;
-            margin: 5px 1%;
+            width: 100%;
             box-sizing: border-box;
         }
+
         button:hover {
             background-color: #45a049;
         }
+
         .result {
             margin-top: 20px;
             text-align: left;
         }
+
         .result p {
             background: #f2f2f2;
             padding: 10px 15px;
@@ -82,28 +91,81 @@
             margin: 10px 0;
             border: 1px solid #ccc;
         }
+
         .footer {
             margin-top: 15px;
             font-size: 12px;
             color: #777;
         }
-        .button-group {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
+
+        /* 側邊欄樣式 */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 999;
+            top: 0;
+            left: 0;
+            background-color: #4CAF50;
+            overflow-x: hidden;
+            transition: 0.3s;
+            padding-top: 60px;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
         }
+
+        .sidebar a {
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #388e3c;
+        }
+
+        .sidebar-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .open-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 26px;
+            cursor: pointer;
+            color: #4CAF50;
+            background: none;
+            border: none;
+        }
+
         @media (max-width: 480px) {
-            .button-group {
-                flex-direction: column;
-            }
-            .button-group button {
-                width: 100%;
-                margin-bottom: 10px;
+            .calculator-container {
+                padding-top: 60px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- 側邊欄按鈕與內容 -->
+    <button class="open-btn" onclick="openSidebar()">☰</button>
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="sidebar-close" onclick="closeSidebar()">×</a>
+        <a href="realm.html">秘境計算</a>
+        <a href="room.html">靈泉計算</a>
+        <a href="levelup.html">經驗計算</a>
+        <a href="exp.html">經驗查詢</a>
+    </div>
+
+    <!-- 主內容 -->
     <div class="calculator-container">
         <h2>修仙戰力計算器</h2>
         <div class="input-group">
@@ -116,59 +178,56 @@
         </div>
         <button onclick="calculate()">計算結果</button>
         <div class="result" id="result"></div>
-        
-        <div class="button-group">
-            <button onclick="location.href='realm.html'">秘境計算</button>
-            <button onclick="location.href='room.html'">靈泉計算</button>
-            <button onclick="location.href='levelup.html'">經驗計算</button>
-            <button onclick="location.href='exp.html'">經驗查詢</button>
-        </div>
-
         <div class="footer">本網站計算戰力僅供參考</div>
     </div>
-    
+
     <script>
-            function calculate() {
+        function openSidebar() {
+            document.getElementById("mySidebar").style.width = "220px";
+        }
+
+        function closeSidebar() {
+            document.getElementById("mySidebar").style.width = "0";
+        }
+
+        function calculate() {
             let myPower = parseFloat(document.getElementById('myPower').value);
             let enemyPower = parseFloat(document.getElementById('enemyPower').value);
-    
-            if (isNaN(myPower) || isNaN(enemyPower)) {
-            alert('請輸入有效的戰力數值');
-            return;
-    }
-    
-    let myPowerPlus5 = Math.round(myPower * 1.05);
-    let myPowerMinus5 = Math.round(myPower * 0.95);
-    let myPowerPlus8 = Math.round(myPower * 1.08);
-    let myPowerMinus2 = Math.round(myPower * 0.98);
-    let enemyPowerPlus5 = Math.round(enemyPower * 1.05);
-    let enemyPowerMinus5 = Math.round(enemyPower * 0.95);
-    let enemyPowerHigh = Math.round((myPower * 1.05) / 0.95);
-    let enemyPowerLow = Math.round((myPower * 0.95) / 1.05);
-    
-    let controlledMyPower = Math.round(myPower * 1.05);
-    let controlledEnemyPower = Math.round(enemyPower * 0.95);
-    
-    let enemyOriginalPower = Math.round((myPower * 0.98) / 1.05);
-    let enemyHighPower = Math.round((myPower * 1.05) / 0.98);
-    
 
-    let resultDiv = document.getElementById('result');
-        resultDiv.innerHTML = `
-        <div style="text-align: center;">
-        <p>我方戰力(+5%後): ${myPowerPlus5}</p>
-        <p>我方戰力(-5%後): ${myPowerMinus5}</p>
-        <p>我方戰力(+8%後): ${myPowerPlus8}</p>
-        <p>我方戰力(-2%後): ${myPowerMinus2}</p>
-        <p>敵方戰力(+5%後): ${enemyPowerPlus5}</p>
-        <p>敵方戰力(-5%後): ${enemyPowerMinus5}</p>
-        <p style="color: brown;">敵方戰力高於以下(贏不了): ${enemyPowerHigh}</p>
-        <p style="color: brown;">敵方戰力低於以下(可輾壓): ${enemyPowerLow}</p>
-        <p style="color: purple;">我方原始戰力: ${controlledMyPower}<br>敵方原始戰力: ${controlledEnemyPower}</p>
-        <p style="color: red;">我方戰力(-2%) 且 敵方戰力(+5%)<br>低於以下戰力可輾壓: ${enemyOriginalPower}</p>
-        <p style="color: blue;">敵方戰力(+5%) 且 我方戰力(-2%)<br>高於以下戰力贏不了: ${enemyHighPower}</p>
-        </div>
-`;
+            if (isNaN(myPower) || isNaN(enemyPower)) {
+                alert('請輸入有效的戰力數值');
+                return;
+            }
+
+            let myPowerPlus5 = Math.round(myPower * 1.05);
+            let myPowerMinus5 = Math.round(myPower * 0.95);
+            let myPowerPlus8 = Math.round(myPower * 1.08);
+            let myPowerMinus2 = Math.round(myPower * 0.98);
+            let enemyPowerPlus5 = Math.round(enemyPower * 1.05);
+            let enemyPowerMinus5 = Math.round(enemyPower * 0.95);
+            let enemyPowerHigh = Math.round((myPower * 1.05) / 0.95);
+            let enemyPowerLow = Math.round((myPower * 0.95) / 1.05);
+            let controlledMyPower = Math.round(myPower * 1.05);
+            let controlledEnemyPower = Math.round(enemyPower * 0.95);
+            let enemyOriginalPower = Math.round((myPower * 0.98) / 1.05);
+            let enemyHighPower = Math.round((myPower * 1.05) / 0.98);
+
+            let resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <div style="text-align: center;">
+                    <p>我方戰力(+5%後): ${myPowerPlus5}</p>
+                    <p>我方戰力(-5%後): ${myPowerMinus5}</p>
+                    <p>我方戰力(+8%後): ${myPowerPlus8}</p>
+                    <p>我方戰力(-2%後): ${myPowerMinus2}</p>
+                    <p>敵方戰力(+5%後): ${enemyPowerPlus5}</p>
+                    <p>敵方戰力(-5%後): ${enemyPowerMinus5}</p>
+                    <p style="color: brown;">敵方戰力高於以下(贏不了): ${enemyPowerHigh}</p>
+                    <p style="color: brown;">敵方戰力低於以下(可輾壓): ${enemyPowerLow}</p>
+                    <p style="color: purple;">我方原始戰力: ${controlledMyPower}<br>敵方原始戰力: ${controlledEnemyPower}</p>
+                    <p style="color: red;">我方戰力(-2%) 且 敵方戰力(+5%)<br>低於以下戰力可輾壓: ${enemyOriginalPower}</p>
+                    <p style="color: blue;">敵方戰力(+5%) 且 我方戰力(-2%)<br>高於以下戰力贏不了: ${enemyHighPower}</p>
+                </div>
+            `;
 
             if (controlledMyPower > controlledEnemyPower) {
                 resultDiv.innerHTML += `<p style="color: green; font-weight: bold; text-align: center;">你會贏(原始狀況下)</p>`;
