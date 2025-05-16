@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <title>靈泉房計算器</title>
+  <title>秘境通關計算器</title>
   <style>
     body {
       font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -69,55 +69,59 @@
 </head>
 <body>
   <div class="calculator-container">
-    <h2>靈泉房計算</h2>
-    <input type="number" id="linroom" placeholder="請輸入靈泉房數量" oninput="processLinRoom()" />
+    <h2>秘境人數計算</h2>
+    <input type="number" id="linrealm" placeholder="請輸入參與秘境人數" oninput="processLinrealm()" />
     <div class="result">
-      <p>最終靈泉房數量<br><span id="linroomans" class="highlight">-</span></p>
-      <p>有機會輪空的輪次<br><span id="linroompass" class="highlight">-</span></p>
-      <p>每輪剩餘房間數<br><span id="linroomeach" class="highlight">-</span></p>
+      <p>最終通過數<br><span id="player" class="highlight">-</span></p>
+      <p>每回合剩餘數<br><span id="playerend" class="highlight">-</span></p>
     </div>
-      <button onclick="location.href='realm.html'">秘境計算</button>
+      <button onclick="location.href='room.html'">靈泉計算</button>
 	    <button onclick="location.href='index.html'">戰力計算</button>
       <button onclick="location.href='exp.html'">經驗查詢</button>
-    <div class="footer">本網站提供數據僅供參考 (最後更新: 2025/5/15)</div>
+    <div class="footer">本網站提供數據僅供參考 (最後更新: 2025/5/16)</div>
   </div>
 
   <script>
-    function processLinRoom() {
-      let roomnum = parseInt(document.getElementById("linroom").value);
-      let roundsWithBye = [];
-      let eachRound = [];
+function processLinrealm() {
+  let roomnum = parseInt(document.getElementById("linrealm").value);
+  let roundsWithBye = [];
+  let eachRound = [];
+  let progression = [];
 
-      if (isNaN(roomnum) || roomnum <= 0) {
-        document.getElementById("linroomans").textContent = "-";
-        document.getElementById("linroompass").textContent = "-";
-        document.getElementById("linroomeach").textContent = "-";
-        return;
-      }
+  if (isNaN(roomnum) || roomnum <= 0) {
+    document.getElementById("player").textContent = "-";
+    document.getElementById("playerend").textContent = "-";
+    document.getElementById("playereach").textContent = "-";
+    return;
+  }
 
-      let finalRoomCount = roomnum;
-      let current = roomnum;
+  let finalRoomCount = roomnum;
+  let current = roomnum;
 
-      for (let i = 1; i <= 5; i++) {
-        if (current <= 1) break;
+  for (let i = 1; i <= 2; i++) {
+    if (current <= 1) break;
 
-        eachRound.push(current);
+    eachRound.push(current);
+    progression.push(current);
 
-        if (current % 2 !== 0) {
-          roundsWithBye.push(i);
-          current = Math.ceil(current / 2);
-        } else {
-          current = current / 2;
-        }
-
-        finalRoomCount = current;
-      }
-
-      document.getElementById("linroomans").textContent = finalRoomCount;
-      document.getElementById("linroompass").textContent =
-        roundsWithBye.length > 0 ? roundsWithBye.join("、") : "無";
-      document.getElementById("linroomeach").textContent = eachRound.join(" → ");
+    if (current % 2 !== 0) {
+      roundsWithBye.push(i);
+      current = Math.ceil(current / 2);
+    } else {
+      current = current / 2;
     }
+
+    finalRoomCount = current;
+  }
+
+  progression.push(finalRoomCount); // 加上最後一輪的 1
+
+  document.getElementById("player").textContent = finalRoomCount;
+  document.getElementById("playerend").textContent =
+    progression.length > 0 ? progression.join(" → ") : "-";
+  document.getElementById("playereach").textContent =
+    eachRound.length > 0 ? eachRound.join(" → ") : "-";
+}
   </script>
 </body>
 </html>
