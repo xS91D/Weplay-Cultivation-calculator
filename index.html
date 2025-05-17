@@ -81,15 +81,42 @@
 
         .result {
             margin-top: 20px;
-            text-align: left;
+            text-align: center;
         }
 
-        .result p {
-            background: #f2f2f2;
-            padding: 10px 15px;
-            border-radius: 5px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
+        .result-box {
+            background: #f9f9f9;
+            border: 2px solid #ddd;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+        }
+
+        .result-box p {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        .highlight-win {
+            color: #2e7d32;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .highlight-lose {
+            color: #c62828;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            font-size: 12px;
+            background: #eee;
+            color: #333;
+            border-radius: 4px;
+            margin-right: 5px;
         }
 
         .footer {
@@ -98,7 +125,6 @@
             color: #777;
         }
 
-        /* 側邊欄樣式 */
         .sidebar {
             height: 100%;
             width: 0;
@@ -155,7 +181,6 @@
     </style>
 </head>
 <body>
-    <!-- 側邊欄按鈕與內容 -->
     <button class="open-btn" onclick="openSidebar()">☰</button>
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="sidebar-close" onclick="closeSidebar()">×</a>
@@ -165,7 +190,6 @@
         <a href="exp.html">經驗查詢</a>
     </div>
 
-    <!-- 主內容 -->
     <div class="calculator-container">
         <h2>修仙戰力計算器</h2>
         <div class="input-group">
@@ -201,38 +225,31 @@
 
             let myPowerPlus5 = Math.round(myPower * 1.05);
             let myPowerMinus5 = Math.round(myPower * 0.95);
-            let myPowerPlus8 = Math.round(myPower * 1.08);
-            let myPowerMinus2 = Math.round(myPower * 0.98);
             let enemyPowerPlus5 = Math.round(enemyPower * 1.05);
             let enemyPowerMinus5 = Math.round(enemyPower * 0.95);
             let enemyPowerHigh = Math.round((myPower * 1.05) / 0.95);
             let enemyPowerLow = Math.round((myPower * 0.95) / 1.05);
             let controlledMyPower = Math.round(myPower * 1.05);
             let controlledEnemyPower = Math.round(enemyPower * 0.95);
-            let enemyOriginalPower = Math.round((myPower * 0.98) / 1.05);
-            let enemyHighPower = Math.round((myPower * 1.05) / 0.98);
 
             let resultDiv = document.getElementById('result');
             resultDiv.innerHTML = `
-                <div style="text-align: center;">
-                    <p>我方戰力(+5%後): ${myPowerPlus5}</p>
-                    <p>我方戰力(-5%後): ${myPowerMinus5}</p>
-                    <p>我方戰力(+8%後): ${myPowerPlus8}</p>
-                    <p>我方戰力(-2%後): ${myPowerMinus2}</p>
-                    <p>敵方戰力(+5%後): ${enemyPowerPlus5}</p>
-                    <p>敵方戰力(-5%後): ${enemyPowerMinus5}</p>
-                    <p style="color: brown;">敵方戰力高於以下(贏不了): ${enemyPowerHigh}</p>
-                    <p style="color: brown;">敵方戰力低於以下(可輾壓): ${enemyPowerLow}</p>
-                    <p style="color: purple;">我方原始戰力: ${controlledMyPower}<br>敵方原始戰力: ${controlledEnemyPower}</p>
-                    <p style="color: red;">我方戰力(-2%) 且 敵方戰力(+5%)<br>低於以下戰力可輾壓: ${enemyOriginalPower}</p>
-                    <p style="color: blue;">敵方戰力(+5%) 且 我方戰力(-2%)<br>高於以下戰力贏不了: ${enemyHighPower}</p>
+                <div class="result-box">
+                    <p><span class="tag">+5%</span>我方戰力: ${myPowerPlus5}</p>
+                    <p><span class="tag">-5%</span>我方戰力: ${myPowerMinus5}</p>
+                    <p><span class="tag">+5%</span>敵方戰力: ${enemyPowerPlus5}</p>
+                    <p><span class="tag">-5%</span>敵方戰力: ${enemyPowerMinus5}</p>
+                    <p style="color: brown;"><strong>敵方戰力高於 ${enemyPowerHigh} 時：敵方輾壓我方</strong></p>
+                    <p style="color: brown;"><strong>敵方戰力低於 ${enemyPowerLow} 時：我方輾壓敵方</strong></p>
+                    <hr>
+                    <p><span class="tag">原始模擬</span>我方: ${controlledMyPower}，敵方: ${controlledEnemyPower}</p>
                 </div>
             `;
 
             if (controlledMyPower > controlledEnemyPower) {
-                resultDiv.innerHTML += `<p style="color: green; font-weight: bold; text-align: center;">你會贏(原始狀況下)</p>`;
+                resultDiv.innerHTML += `<p class="highlight-win">✅ 你會贏（原始狀況下）</p>`;
             } else {
-                resultDiv.innerHTML += `<p style="color: red; font-weight: bold; text-align: center;">你會輸(原始狀況下)</p>`;
+                resultDiv.innerHTML += `<p class="highlight-lose">❌ 你會輸（原始狀況下）</p>`;
             }
         }
     </script>
