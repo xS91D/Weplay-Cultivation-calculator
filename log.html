@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>修仙戒數量紀錄</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #ffcc70, #5e9ca0);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            color: #4CAF50;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        p.description {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 500px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 999;
+            top: 0;
+            left: 0;
+            background-color: #4CAF50;
+            overflow-x: hidden;
+            transition: 0.3s;
+            padding-top: 60px;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .sidebar a {
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #388e3c;
+        }
+
+        .sidebar-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .open-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 26px;
+            cursor: pointer;
+            color: #4CAF50;
+            background: none;
+            border: none;
+            z-index: 1000;
+        }
+
+        @media (max-width: 480px) {
+            .content-container {
+                padding-top: 60px;
+            }
+
+            iframe {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ☰ 按鈕 -->
+    <button class="open-btn" onclick="openSidebar()">☰</button>
+
+    <!-- 側邊選單 -->
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="sidebar-close" onclick="closeSidebar()">×</a>
+        <a href="realm.html">秘境計算</a>
+        <a href="room.html">靈泉計算</a>
+        <a href="levelup.html">經驗計算</a>
+        <a href="exp.html">經驗查詢</a>
+    </div>
+
+    <!-- 主內容 -->
+    <div class="content-container">
+        <h2>修仙戒數量紀錄</h2>
+        <p class="description">本網站數據以每周五10:00 ~ 戒指結束 為主</p>
+
+        <!-- 替換此 iframe 來源為你的 GitHub Excel 網址（轉為 OneDrive/Office365 預覽或其他服務） -->
+        <iframe 
+            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSoTfo0hpdKWYebteRuPhjofQapoCe8VOBDCWwbKfeOlguh49mSwXPPgNWmjczBSQ/pubhtml"
+            frameborder="0"
+        ></iframe>
+    </div>
+
+    <!-- 功能 JS -->
+    <script>
+        function openSidebar() {
+            document.getElementById("mySidebar").style.width = "220px";
+        }
+
+        function closeSidebar() {
+            document.getElementById("mySidebar").style.width = "0";
+        }
+    </script>
+</body>
+</html>
